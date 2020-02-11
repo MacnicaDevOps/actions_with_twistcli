@@ -11,7 +11,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag $MYREPO/$MYIMAGE:$TAG
+      run: docker build . --file Dockerfile --tag $MYREPO/$MYIMAGE:01
       env:
         MYREPO: ${{ secrets.MYREPO }} 
         MYIMAGE: ${{ secrets.MYIMAGE }}
@@ -20,7 +20,7 @@ jobs:
       run: |
         curl -k -u $TL_USER:$TL_PW --output ./twistcli $TL_CONSOLE/api/v1/util/twistcli
         chmod a+x ./twistcli
-        ./twistcli images scan --details -address $TL_CONSOLE -u $TL_USER -p $TL_PW --vulnerability-threshold high --compliance-threshold critical --only-fixed $MYREPO/$MYIMAGE:$TAG
+        ./twistcli images scan --details -address $TL_CONSOLE -u $TL_USER -p $TL_PW --vulnerability-threshold high --compliance-threshold critical --only-fixed $MYREPO/$MYIMAGE:01
       env:
         TL_USER: ${{ secrets.TL_USER }}
         TL_PW: ${{ secrets.TL_PW }}
@@ -31,7 +31,7 @@ jobs:
     - name: Push the Docker image
       run: |
         echo $DOCKER_PW | docker login --username $DOCKER_USER --password-stdin docker.io
-        docker push docker.io/$MYREPO/$MYIMAGE:$TAG
+        docker push docker.io/$MYREPO/$MYIMAGE:01
       env:
         DOCKER_USER: ${{ secrets.DOCKER_USER }}
         DOCKER_PW: ${{ secrets.DOCKER_PW }}
