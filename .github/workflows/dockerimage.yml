@@ -1,0 +1,40 @@
+name: Docker Image CI
+
+on: [push]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag $MYREPO/$MYIMAGE:$TAG
+      env:
+        MYREPO: ${{ secrets.MYREPO }} 
+        MYIMAGE: ${{ secrets.MYIMAGE }}
+        TAG: ${{ secrets.TAG }}
+    - name: Scan the Docker image
+      run: |
+        curl -k -u $TL_USER:$TL_PW --output ./twistcli $TL_CONSOLE/api/v1/util/twistcli
+        chmod a+x ./twistcli
+        ./twistcli images scan --details -address $TL_CONSOLE -u $TL_USER -p $TL_PW --vulnerability-threshold high --compliance-threshold critical --only-fixed $MYREPO/$MYIMAGE:$TAG
+      env:
+        TL_USER: ${{ secrets.TL_USER }}
+        TL_PW: ${{ secrets.TL_PW }}
+        TL_CONSOLE: ${{ secrets.TL_CONSOLE }}
+        MYREPO: ${{ secrets.MYREPO }}      
+        MYIMAGE: ${{ secrets.MYIMAGE }}
+        TAG: ${{ secrets.TAG }}
+    - name: Push the Docker image
+      run: |
+        echo $DOCKER_PW | docker login --username $DOCKER_USER --password-stdin docker.io
+        docker push docker.io/$MYREPO/$MYIMAGE:$TAG
+      env:
+        DOCKER_USER: ${{ secrets.DOCKER_USER }}
+        DOCKER_PW: ${{ secrets.DOCKER_PW }}
+        MYREPO: ${{ secrets.MYREPO }}
+        MYIMAGE: ${{ secrets.MYIMAGE }}
+        TAG: ${{ secrets.TAG }}
