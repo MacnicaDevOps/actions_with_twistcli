@@ -1,14 +1,12 @@
 version: 2.1
 orbs:
   twistcli: twistlock/twistcli-scan@1.0.5
-#environment:
-#  TAG: '01'
 jobs:
   docker-build-and-save:
     executor: twistcli/default
     steps:
       - checkout
-      - run: docker build -t $MYREPO/$MYIMAGE:$TAG .
+      - run: 'docker build -t $MYREPO/$MYIMAGE:$TAG .'
       - run: mkdir -p workspace
       - run: 'docker save $MYREPO/$MYIMAGE:$TAG -o workspace/image.tar'
       - persist_to_workspace:
