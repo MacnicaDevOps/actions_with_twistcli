@@ -8,7 +8,7 @@ jobs:
     executor: twistcli/default
     steps:
       - checkout
-      - run: 'docker build -t $MYREPO/$MYIMAGE:$TAG .'
+      - run: docker build -t $MYREPO/$MYIMAGE:$TAG .
       - run: mkdir -p workspace
       - run: 'docker save $MYREPO/$MYIMAGE:$TAG -o workspace/image.tar'
       - persist_to_workspace:
