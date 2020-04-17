@@ -15,7 +15,7 @@ jobs:
       PRISMA_PASS: ${{ secrets.PRISMA_PASS }}
       PRISMA_CONSOLE: ${{ secrets.PRISMA_CONSOLE }}
       DOCKER_USER: ${{ secrets.DOCKER_USER }}
-      DOCKER_PW: ${{ secrets.DOCKER_PW }}
+      DOCKER_PASS: ${{ secrets.DOCKER_PASS }}
 
     steps:
     - uses: actions/checkout@v2
@@ -36,6 +36,6 @@ jobs:
           $MYREPO/$MYIMAGE:$TAG
     - name: Push the Docker image
       run: |
-        echo $DOCKER_PW | docker login --username $DOCKER_USER --password-stdin docker.io
+        echo $DOCKER_PASS | docker login --username $DOCKER_USER --password-stdin docker.io
         docker push docker.io/$MYREPO/$MYIMAGE:$TAG
 
