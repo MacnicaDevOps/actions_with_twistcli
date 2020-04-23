@@ -11,3 +11,4 @@ USER root
 
 EXPOSE 8080
 ENTRYPOINT ["nginx","-g","daemon off;"]
+
