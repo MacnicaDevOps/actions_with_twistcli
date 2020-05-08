@@ -32,7 +32,7 @@ jobs:
           -u $PRISMA_USER \
           -p $PRISMA_PASS \
           $MYREPO/$MYIMAGE:$TAG
-      if: $0 == '1'
+      if: $? == '1'
             echo "Build failed"
             exit 1
     - name: Push the Docker image
