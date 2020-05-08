@@ -35,9 +35,9 @@ jobs:
           echo "aaaaaaa"
           echo $?
 #         e=`cat result.out | grep -c "threshold check results: FAIL"`
-#      if: $? == '1'
-#            echo "Build failed"
-#            exit 1
+      if: $? == 1
+            echo "Build failed"
+            exit 1
     - name: Push the Docker image
       run: |
         echo $DOCKER_PASS | docker login --username $DOCKER_USER --password-stdin docker.io
