@@ -33,8 +33,7 @@ jobs:
           -p $PRISMA_PASS \
           $MYREPO/$MYIMAGE:$TAG | tee result.out
           e=`cat result.out | grep -c "threshold check results: FAIL"`
-          echo $e
-          if [ $e -gt 0 ]; then
+          if [ $e -gt 100 ]; then
             echo "Build failed"
             exit 1
           fi
