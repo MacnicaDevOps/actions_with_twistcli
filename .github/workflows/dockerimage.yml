@@ -30,8 +30,6 @@ jobs:
           -address $PRISMA_CONSOLE \
           -u $PRISMA_USER \
           -p $PRISMA_PASS \
-          --vulnerability-threshold high \
-          --compliance-threshold critical \
           --only-fixed \
           $MYREPO/$MYIMAGE:$TAG
     - name: Push the Docker image
