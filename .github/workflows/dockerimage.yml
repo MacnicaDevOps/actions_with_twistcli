@@ -32,7 +32,7 @@ jobs:
           -u $PRISMA_USER \
           -p $PRISMA_PASS \
           $MYREPO/$MYIMAGE:$TAG | tee result.out
-          e=`cat result.out | grep -c "threshold check results: FAIL"`
+#         e=`cat result.out | grep -c "threshold check results: FAIL"`
 #      if: $? == '1'
 #            echo "Build failed"
 #            exit 1
