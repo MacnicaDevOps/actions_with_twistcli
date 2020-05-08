@@ -35,6 +35,7 @@ jobs:
           -p $PRISMA_PASS \
           $MYREPO/$MYIMAGE:$TAG
         echo ::set-output name=result::$(cat resultfile | grep -c "Scan failed due to")
+        echo 'result aaaa'
         echo $result
       if: ${{ steps.image-scan.outputs.result }} > 0
         echo "Build failed"
