@@ -31,12 +31,10 @@ jobs:
           -address $PRISMA_CONSOLE \
           -u $PRISMA_USER \
           -p $PRISMA_PASS \
-          $MYREPO/$MYIMAGE:$TAG | echo $?
-#          e=`cat result.out | grep -c "threshold check results: FAIL"`
-#          if [ $e -gt 100 ]; then
-#            echo "Build failed"
-#            exit 1
-#          fi
+          $MYREPO/$MYIMAGE:$TAG
+      if: $0 == '1'
+            echo "Build failed"
+            exit 1
     - name: Push the Docker image
       run: |
         echo $DOCKER_PASS | docker login --username $DOCKER_USER --password-stdin docker.io
