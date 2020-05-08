@@ -30,7 +30,6 @@ jobs:
           -address $PRISMA_CONSOLE \
           -u $PRISMA_USER \
           -p $PRISMA_PASS \
-          --only-fixed \
           $MYREPO/$MYIMAGE:$TAG
     - name: Push the Docker image
       run: |
