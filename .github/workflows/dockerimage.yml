@@ -36,7 +36,7 @@ jobs:
           $MYREPO/$MYIMAGE:$TAG
         echo ::set-output name=result::$(cat resultfile | grep -c "Scan failed due to")
         echo 'result aaaa'
-        echo $result
+        echo ${{ steps.image-scan.outputs.result }}
       if: ${{ steps.image-scan.outputs.result }} > 0
         echo "Build failed"
 #        result=`cat resultfile | grep -c "threshold check results: FAIL"`
