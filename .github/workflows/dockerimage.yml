@@ -34,7 +34,7 @@ jobs:
           -u $PRISMA_USER \
           -p $PRISMA_PASS \
           $MYREPO/$MYIMAGE:$TAG
-        echo ::set-output name=result::$(cat resultfile | grep -c "Scan failed due to")
+        echo ::set-output name=result::$(cat resultfile | grep -c "Scan")
         echo 'result aaaa'
         echo ${{ steps.image-scan.outputs.result }}
       if: ${{ steps.image-scan.outputs.result }} > 0
