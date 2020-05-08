@@ -34,7 +34,7 @@ jobs:
           -u $PRISMA_USER \
           -p $PRISMA_PASS \
           $MYREPO/$MYIMAGE:$TAG
-        echo ::set-output name=result::$(cat resultfile | grep -c "threshold check results: FAIL")
+        echo ::set-output name=result::$(cat resultfile | grep -c "Scan failed due to")
       if: ${{ steps.image-scan.outputs.result }} == 1
         echo "Build failed"
 #        result=`cat resultfile | grep -c "threshold check results: FAIL"`
