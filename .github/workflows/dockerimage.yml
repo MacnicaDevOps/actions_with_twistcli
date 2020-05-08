@@ -27,6 +27,7 @@ jobs:
         chmod a+x ./twistcli
         ./twistcli images scan \
           --details \
+          --ci \
           -address $PRISMA_CONSOLE \
           -u $PRISMA_USER \
           -p $PRISMA_PASS \
