@@ -22,6 +22,7 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag $MYREPO/$MYIMAGE:$TAG
     - name: Scan the Docker image
+      id: image-scan
       run: |
         curl -k -u $PRISMA_USER:$PRISMA_PASS --output ./twistcli $PRISMA_CONSOLE/api/v1/util/twistcli
         chmod a+x ./twistcli
@@ -34,7 +35,7 @@ jobs:
           -p $PRISMA_PASS \
           $MYREPO/$MYIMAGE:$TAG
         echo ::set-output name=result::$(cat resultfile | grep -c "threshold check results: FAIL")
-      if: $result == 1
+      if: ${{ steps.image-scan.outputs.result }} == 1
         echo "Build failed"
 #        result=`cat resultfile | grep -c "threshold check results: FAIL"`
 #        if [$e == 1]; then
