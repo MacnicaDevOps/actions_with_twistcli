@@ -37,6 +37,7 @@ jobs:
             echo "Build failed"
             exit 1
           fi
+          cat result.out
     - name: Push the Docker image
       run: |
         echo $DOCKER_PASS | docker login --username $DOCKER_USER --password-stdin docker.io
