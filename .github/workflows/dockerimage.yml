@@ -35,7 +35,7 @@ jobs:
           -p $PRISMA_PASS \
           $MYREPO/$MYIMAGE:$TAG
 #        echo ::set-output name=result::$(cat resultfile | grep -c "Scan")
-        echo ::set-output name=result::$(ls -la)
+        echo ::set-output name=result::$(docker info)
         echo 'result aaaa'
         echo ${{ steps.image-scan.outputs.result }}
       if: ${{ steps.image-scan.outputs.result }} > 0
