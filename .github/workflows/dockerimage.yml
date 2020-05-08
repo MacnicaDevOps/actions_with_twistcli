@@ -28,12 +28,12 @@ jobs:
         ./twistcli images scan \
           --details \
           --ci \
-          --output-file resultfile
+          --output-file resultfile \
           -address $PRISMA_CONSOLE \
           -u $PRISMA_USER \
           -p $PRISMA_PASS \
           $MYREPO/$MYIMAGE:$TAG
-          result=`cat resultfile | grep -c "threshold check results: FAIL"`
+        result=`cat resultfile | grep -c "threshold check results: FAIL"`
 #        if [$e == 1]; then
 #          echo "Build failed"
 #          exit 1
