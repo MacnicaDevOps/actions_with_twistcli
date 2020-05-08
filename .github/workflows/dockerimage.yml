@@ -28,12 +28,12 @@ jobs:
         ./twistcli images scan \
           --details \
           --ci \
+          --output-file resultfile
           -address $PRISMA_CONSOLE \
           -u $PRISMA_USER \
           -p $PRISMA_PASS \
           $MYREPO/$MYIMAGE:$TAG
-        bash -c "if [ /"$?/" == /"1/" ]; then exit 1; fi"
-#          e=`cat result.out | grep -c "threshold check results: FAIL"`
+          result=`cat resultfile | grep -c "threshold check results: FAIL"`
 #        if [$e == 1]; then
 #          echo "Build failed"
 #          exit 1
@@ -42,5 +42,5 @@ jobs:
       run: |
         echo $DOCKER_PASS | docker login --username $DOCKER_USER --password-stdin docker.io
         docker push docker.io/$MYREPO/$MYIMAGE:$TAG
-        
+
 
