@@ -34,16 +34,14 @@ jobs:
           -u $PRISMA_USER \
           -p $PRISMA_PASS \
           $MYREPO/$MYIMAGE:$TAG
-#        echo ::set-output name=result::$(cat resultfile | grep -c "Scan")
-#        echo 'result aaaa'
-#        echo ${{ steps.image-scan.outputs.result }}
-#      if: ${{ steps.image-scan.outputs.result }} > 0
-#        echo "Build failed"
-#        result=`cat resultfile | grep -c "threshold check results: FAIL"`
-#        if [$e == 1]; then
-#          echo "Build failed"
-#          exit 1
-#        fi
+          e=`cat result.out | grep -c "threshold check results: PASS"`
+          if [ $e -eq 2 ]; then
+            echo "Build Scan succeeded"
+            exit 0
+          else
+            echo "Build failed"
+            exit 1
+          fi
     - name: Push the Docker image
       run: |
         echo $DOCKER_PASS | docker login --username $DOCKER_USER --password-stdin docker.io
